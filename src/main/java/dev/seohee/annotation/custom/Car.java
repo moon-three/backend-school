@@ -3,6 +3,8 @@ package dev.seohee.annotation.custom;
 import dev.seohee.annotation.custom.annotation.ModelDescriptionPrint;
 import dev.seohee.annotation.custom.annotation.ModelDescriptionPrints;
 
+import java.time.LocalDate;
+
 public class Car {
     private final String model;
     private final Integer year;
@@ -48,6 +50,16 @@ public class Car {
 
     public Integer getYear() {
         return year;
+    }
+
+    // 생산된지 5년이 넘었으면 정비가 필요 합니다.
+    private boolean isNeedMaintenance() {
+        return LocalDate.of(year, 1, 1).isBefore(LocalDate.now().minusYears(5));
+    }
+
+    // 오일 교체는 1년마다 해야한다.
+    public boolean isNeedChangeOil() {
+        return LocalDate.of(year, 1, 1).isBefore(LocalDate.now().minusYears(1));
     }
 
     @Override
